@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Game Time</title>
+
+  <link rel="stylesheet" href="font-awesome.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <h1>Game Time</h1>
+  <h2>time to play </h2>
+
+  <!-- //create game name ( game title)
+// create "will play, playing, finished, (status)
+// create, must play, meh , bunz (review)
+// add image of game  ( pic of game)
+
+// what is our CRUD
+// create game to play 
+// read our games 
+// update will be to " status" + " review" 
+// posting would be us adding a new game to our list 
+// delete games off our lists -->
+
+
+
+
+  <ul class="messages">
+    <% for(var i=0; i<messages.length; i++) {%>
+      <li class="message">
+        <span>
+          <%= messages[i].name %>
+        </span>
+        <!-- <span>
+          <%= messages[i].status %>
+        </span> -->
+        <!-- what is this ? -->
+        <!--  this is the same code used further down but its  for our status instead  -->
+        <select name="status" class="status-select" data-id="<%= messages[i]._id %>">
+          <option value="Will Play" <%=messages[i].status==='Will Play' ? 'selected' : '' %>>Will Play</option>
+          <option value="Playing" <%=messages[i].status==='Playing' ? 'selected' : '' %>>Playing</option>
+          <option value="Finished" <%=messages[i].status==='Finished' ? 'selected' : '' %>>Finished</option>
+        </select>
+        <!-- <span>
+          <%= messages[i].Review %>
+        </span> -->
+
+
+
+        <!-- this line of code wasnt allowing me to use the picture for people to go ahead and add a link of an image 
+         the following line of code allows it to work  -->
+        <img src="<%= messages[i].pic %>" alt="game pic" width="150">
+        <!-- <span> 
+          <%= messages[i].pic %>
+        </span> -->3
+
+        <!-- <button type="button" class="fa-trash">Delete</button> -->
+        <button type="button" class="fa-trash" data-id="<%= messages[i]._id %>">Delete</button>
+
+
+        <!-- <select name="Review" id="Review">
+
+          <option value="Must Play">Must Play</option>
+          <option value="Meh">Meh</option>
+          <option value="Bunz ">Bunz</option> -->
+        <!-- what going on here ?  i needed change it to class so the drop down can be able to function even after being refreshed.   -->
+        <select name="Review" class="review-select" data-id="<%= messages[i]._id %>">
+          <option value="Must Play" <%=messages[i].Review==='Must Play' ? "selected" : '' %>>Must Play</option>
+          <option value="Meh" <%=messages[i].Review==='Meh' ? "selected" : '' %>>Meh</option>
+          <option value="Bunz" <%=messages[i].Review==='Bunz' ? "selected" : '' %>>Bunz</option>
+
+
+        </select>
+
+
+
+        <!-- this isnt needed -->
+        <!-- <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
+      <span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
+      <span><i class="fa fa-trash" aria-hidden="true"></i></span> -->
+      </li>
+      <% } %>
+  </ul>
+
+
+  <form action="/messages" method="POST">
+    <input type="text" placeholder="Game Title" name="name">
+
+    <!-- this is where the client will post the image addy to be able to have the image up
+  -->
+    <input type="text" placeholder="Add Img Address Here" name="pic">
+
+
+
+
+
+
+    <!-- <select name="Review" id="Review">
+
+      <option value="Must Play">Must Play</option>
+      <option value="Meh">Meh</option>
+      <option value="Bunz ">Bunz</option>
+ -->
+
+
+
+
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script src="main.js"></script>
+
+</body>
+
+</html>
