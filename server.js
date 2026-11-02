@@ -9,16 +9,34 @@ var db, collection;
 //const url = "mongodb+srv://kaaronsalazar_db_user:Pokemon123@cluster0.0fd91rk.mongodb.net/gamegame?retrywrites=true&w=majority"
 const dbName = "gamegame";
 
+const PORT = process.env.PORT || 3000;
 
-app.listen(3000, () => {
-  MongoClient.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
+MongoClient.connect(
+  process.env.MONGODB_URI,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  (error, client) => {
     if (error) {
-      throw error;
+      console.error("MongoDB connection failed:", error.message);
+      process.exit(1);
     }
+
     db = client.db(dbName);
-    console.log("Connected to `" + dbName + "`!");
-  });
-});
+    console.log("Connected to MongoDB!");
+
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  }
+);
+// app.listen(3000, () => {
+//   MongoClient.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
+//     if (error) {
+//       throw error;
+//     }
+//     db = client.db(dbName);
+//     console.log("Connected to `" + dbName + "`!");
+//   });
+// });
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }))
