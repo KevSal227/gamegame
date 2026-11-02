@@ -1,40 +1,40 @@
+require('dotenv').config() 
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
-const mongoClient = require('mongodb').MongoClient
+const MongoClient = require('mongodb').MongoClient
 const objectId = require('mongodb').ObjectId
-
 var db, collection;
-// mongodb+srv://<db_username>:HXrmleBaMsovm8fW@cluster0.0fd91rk.mongodb.net/
-//kaaronsalazar_db_user
-const url = "mongodb+srv://kaaronsalazar_db_user:HXrmleBaMsovm8fW@cluster0.0fd91rk.mongodb.net/";
-const dbName = "demo";
+
+//const url = "mongodb+srv://kaaronsalazar_db_user:Pokemon123@cluster0.0fd91rk.mongodb.net/gamegame?retrywrites=true&w=majority"
+const dbName = "gamegame";
+
 
 app.listen(3000, () => {
-    mongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
-        if(error) {
-            throw error;
-        }
-        db = client.db(dbName);
-        console.log("Connected to `" + dbName + "`!");
-    });
+  MongoClient.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
+    if (error) {
+      throw error;
+    }
+    db = client.db(dbName);
+    console.log("Connected to `" + dbName + "`!");
+  });
 });
 
 app.set('view engine', 'ejs')
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
   db.collection('messages').find().toArray((err, result) => {
     if (err) return console.log(err)
-    res.render('index.ejs', {messages: result})
+    res.render('index.ejs', { messages: result })
   })
 })
 //
 app.post('/messages', (req, res) => {
-  console.log (req.body)
-  db.collection('messages').insertOne({...req.body}, (err, result) => {
+  console.log(req.body)
+  db.collection('messages').insertOne({ ...req.body }, (err, result) => {
     if (err) return console.log(err)
     console.log('saved to database')
     res.redirect('/')
@@ -43,38 +43,38 @@ app.post('/messages', (req, res) => {
 //message for Up
 app.put('/messagesUp', (req, res) => {
   db.collection('messages')
-  .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
-    $inc: {
-      thumbUp: 1
-    }
-  }, {
-    sort: {_id: -1},
-    upsert: true
-  }, (err, result) => {
-    if (err) return res.send(err)
-    res.send(result)
-  })
+    .findOneAndUpdate({ name: req.body.name, msg: req.body.msg }, {
+      $inc: {
+        thumbUp: 1
+      }
+    }, {
+      sort: { _id: -1 },
+      upsert: true
+    }, (err, result) => {
+      if (err) return res.send(err)
+      res.send(result)
+    })
 })
 //message for down
 app.put('/messagesDown', (req, res) => {
   db.collection('messages')
-  .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
-    $inc: {
-      thumbUp: -1
-    }
-  }, {
-    sort: {_id: -1},
-    upsert: true
-  }, (err, result) => {
-    if (err) return res.send(err)
-    res.send(result)
-  })
+    .findOneAndUpdate({ name: req.body.name, msg: req.body.msg }, {
+      $inc: {
+        thumbUp: -1
+      }
+    }, {
+      sort: { _id: -1 },
+      upsert: true
+    }, (err, result) => {
+      if (err) return res.send(err)
+      res.send(result)
+    })
 })
 
 
 app.delete('/messages', (req, res) => {
-  db.collection('messages').findOneAndDelete({_id: new objectId(req.body.id)}, (err, result) => {
-  //db.collection('messages').findOneAndDelete({name: req.body.name}, (err, result) => {
+  db.collection('messages').findOneAndDelete({ _id: new objectId(req.body.id) }, (err, result) => {
+    //db.collection('messages').findOneAndDelete({name: req.body.name}, (err, result) => {
     if (err) return res.send(500, err)
     res.send('Message deleted!')
   })
@@ -88,13 +88,13 @@ app.delete('/messages', (req, res) => {
 app.put('/review', (req, res) => {
   db.collection('messages').findOneAndUpdate(
     //we are going to look one game with this id
-    {_id: new objectId(req.body.id)},
+    { _id: new objectId(req.body.id) },
     // $set only changes the review, everything else stays the same
-    {$set: {Review: req.body.Review}},
+    { $set: { Review: req.body.Review } },
     (err, result) => {
       // if something is broken itll send it back to error and wont work, well thats the plan 
       if (err) return res.send(err)
-        //if it works itll send the result back to our main.js 
+      //if it works itll send the result back to our main.js 
       res.send(result)
     })
 })
@@ -104,12 +104,12 @@ app.put('/review', (req, res) => {
 // by recycling the code from above to here it does the same thig 
 app.put('/status', (req, res) => {
   db.collection('messages').findOneAndUpdate(
-    {_id: new objectId(req.body.id)},
-    {$set: {status: req.body.status}},
+    { _id: new objectId(req.body.id) },
+    { $set: { status: req.body.status } },
     (err, result) => {
       // if something is broken itll send it back to error and wont work, well thats the plan 
       if (err) return res.send(err)
-         //if it works itll send the result back to our main.js 
+      //if it works itll send the result back to our main.js 
       res.send(result)
     })
 })
