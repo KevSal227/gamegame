@@ -1,5 +1,10 @@
 # 🎮 Game Time
 
+
+
+<img width="863" height="647" alt="GameGame SS" src="https://github.com/user-attachments/assets/c1368def-c400-4d2a-ad08-449842994554" />
+
+
 A simple full-stack CRUD app for keeping track of the video games you want to play, are playing, or have finished, with a quick review for each one.
 
 Built with **Node.js**, **Express**, **MongoDB**, and **EJS**.
@@ -136,9 +141,3 @@ Each game is saved in MongoDB like this:
 - Upload images instead of pasting a link
 - Filter games by status or review
 - Add user accounts so everyone can keep their own list
-
----
-
-## 📄 License
-
-ISC
