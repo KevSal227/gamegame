@@ -11,7 +11,7 @@ Built with **Node.js**, **Express**, **MongoDB**, and **EJS**.
 
 ---
 
-## ✨ Features
+##  Features
 
 - **Add a game** with its title and a link to a cover image
 - **See all your games** in one list, each with its picture
@@ -23,7 +23,7 @@ Status and review changes save automatically and stay put after a page refresh.
 
 ---
 
-## 🧠 How CRUD Works Here
+##  How CRUD Works Here
 
 | Action     | What it does in the app                         |
 |------------|-------------------------------------------------|
@@ -34,7 +34,7 @@ Status and review changes save automatically and stay put after a page refresh.
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - [Node.js](https://nodejs.org/): JavaScript runtime
 - [Express](https://expressjs.com/): web server and routing
@@ -45,7 +45,7 @@ Status and review changes save automatically and stay put after a page refresh.
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### 1. Clone the repo
 
@@ -92,7 +92,7 @@ Then open **http://localhost:3000** in your browser.
 
 ---
 
-## 📡 API Routes
+## API Routes
 
 | Method   | Route      | Description                                      | Body                          |
 |----------|------------|--------------------------------------------------|-------------------------------|
@@ -104,7 +104,7 @@ Then open **http://localhost:3000** in your browser.
 
 ---
 
-## 🗂️ Data Shape
+##  Data Shape
 
 Each game is saved in MongoDB like this:
 
@@ -120,7 +120,7 @@ Each game is saved in MongoDB like this:
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 ├── public/
@@ -136,7 +136,7 @@ Each game is saved in MongoDB like this:
 
 ---
 
-## 🌱 Ideas for Later
+##  Ideas for Later
 
 - Upload images instead of pasting a link
 - Filter games by status or review
